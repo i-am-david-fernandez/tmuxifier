@@ -11,6 +11,22 @@ tmux() {
   tmuxifier-tmux "$@"
 }
 
+set_history_file() {
+  if [ -z "$HISTFILE" ]; then HISTFILE=$HOME/.tmuxifier_history; fi
+
+  local window_name=$(tmuxifier-tmux display-message -p '#W')
+
+  WINDOW_HISTFILE=$HISTFILE.$window_name
+
+  ## Use the default history file as a starting point if it exists
+  if [[ ! -f "$WINDOW_HISTFILE" && -f "$HISTFILE" ]]
+  then
+    cp $HISTFILE $WINDOW_HISTFILE
+  fi
+
+  run_cmd "export HISTFILE=$WINDOW_HISTFILE"
+}
+
 # Create a new window.
 #
 # Arguments:
