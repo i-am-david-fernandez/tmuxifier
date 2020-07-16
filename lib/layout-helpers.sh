@@ -12,6 +12,9 @@ tmux() {
 }
 
 set_history_file() {
+
+  local pane=$1
+
   if [ -z "$HISTFILE" ]; then HISTFILE=$HOME/.tmuxifier_history; fi
 
   local window_name=$(tmuxifier-tmux display-message -p '#W')
@@ -24,7 +27,7 @@ set_history_file() {
     cp $HISTFILE $WINDOW_HISTFILE
   fi
 
-  run_cmd "export HISTFILE=$WINDOW_HISTFILE"
+  run_cmd "export HISTFILE=$WINDOW_HISTFILE" $pane
 }
 
 # Create a new window.
