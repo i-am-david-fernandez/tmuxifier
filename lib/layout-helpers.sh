@@ -11,6 +11,8 @@ tmux() {
   tmuxifier-tmux "$@"
 }
 
+## <DF> Use a shell history file named after this window, such that
+## history may be independent for each window.
 set_history_file() {
 
   local pane=$1
@@ -27,7 +29,9 @@ set_history_file() {
     cp $HISTFILE $WINDOW_HISTFILE
   fi
 
-  run_cmd "export HISTFILE=$WINDOW_HISTFILE" $pane
+  # run_cmd "export HISTFILE=$WINDOW_HISTFILE" $pane
+  ## <DF> Ensure that the specified history is used. Refer to https://unix.stackexchange.com/a/267034
+  run_cmd "fc -p $WINDOW_HISTFILE" $pane
 }
 
 # Create a new window.
