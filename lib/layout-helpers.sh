@@ -19,7 +19,7 @@ set_history_file() {
 
   if [ -z "$HISTFILE" ]; then HISTFILE=$HOME/.tmuxifier_history; fi
 
-  local window_name=$(tmuxifier-tmux display-message -p '#W')
+  local window_name=$(tmuxifier-tmux display-message -p '#W' | sed 's^/^_^g')
 
   WINDOW_HISTFILE=$HISTFILE.$window_name
 
