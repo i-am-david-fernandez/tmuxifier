@@ -10,6 +10,10 @@ new_window "{{WINDOW_NAME}}"
 #split_v 20
 #split_h 50
 
+# Define window-specific command history for desired panes
+#set_history_file 0
+#set_history_file 1
+
 # Run commands.
 #run_cmd "top"     # runs in active pane
 #run_cmd "date" 1  # runs in pane 1
