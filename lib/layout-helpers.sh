@@ -261,8 +261,11 @@ load_window() {
 #
 load_session() {
   local file
-  if [ "${1#*/}" = "$1" ]; then
-    # There's no slash in the path.
+  ## <DF> The following messes with our subdirectory-based organisation of
+  ## windows and sessions, so we'll change it.
+  # if [ "${1#*/}" = "$1" ]; then
+  #   # There's no slash in the path.
+  if ! [ -f "$1" ]; then
     if [ -f "$TMUXIFIER_LAYOUT_PATH/$1.session.sh" ] || [ ! -f "$1" ]; then
       file="$TMUXIFIER_LAYOUT_PATH/$1.session.sh"
     else
