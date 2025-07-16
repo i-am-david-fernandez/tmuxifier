@@ -19,7 +19,11 @@ set_history_file() {
 
   if [ -z "$HISTFILE" ]; then HISTFILE=$HOME/.tmuxifier_history; fi
 
-  local window_name=$(tmuxifier-tmux display-message -p '#W' | sed 's^/^_^g')
+  # Construct a history file name based on the current window name.
+  # Note that we want to replace slashes with underscores, and remove
+  # any non-alphanumeric characters, so that the history file name is
+  # valid and simple. In particular, we want to avoid spaces and emojis.
+  local window_name=$(tmuxifier-tmux display-message -p '#W' | sed 's^/^_^g' | sed 's/[^[:alnum:]\_-]//g')
 
   WINDOW_HISTFILE=$HISTFILE.$window_name
 
